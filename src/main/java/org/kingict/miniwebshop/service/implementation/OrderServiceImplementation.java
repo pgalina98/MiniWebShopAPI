@@ -32,8 +32,8 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public void updateOrderById(Long orderId, Order updatedOrder) {
-
+    public void updateOrderById(Order updatedOrder) {
+        orderRepository.save(updatedOrder);
     }
 
     @Override

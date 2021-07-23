@@ -47,10 +47,23 @@ public class OrderController {
     }
 
     //PUT Order -> TODO
+    @PutMapping("/{orderId}")
+    public ResponseEntity updateOrderById(@PathVariable("orderId") Long orderId,
+                                          @RequestBody OrderForm updatedOrderForm) {
+        OrderDTO order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        orderFacade.updateOrderById(orderId, updatedOrderForm);
+
+        return null;
+    }
 
     //DELETE Order
     @DeleteMapping("/{orderId}")
-    public ResponseEntity deleteOrder(@PathVariable("orderId") Long orderId) {
+    public ResponseEntity deleteOrderById(@PathVariable("orderId") Long orderId) {
         OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {

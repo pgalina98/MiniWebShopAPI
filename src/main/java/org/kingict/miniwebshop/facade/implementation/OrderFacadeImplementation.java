@@ -46,8 +46,11 @@ public class OrderFacadeImplementation implements OrderFacade {
     }
 
     @Override
-    public void updateOrderById(Long orderId, Order updatedOrder) {
-        //TODO
+    public void updateOrderById(Long orderId, OrderForm updatedOrder) {
+        Order order = orderService.getOrderById(orderId);
+
+        BeanUtils.copyProperties(updatedOrder, order);
+        orderService.updateOrderById(order);
     }
 
     @Override

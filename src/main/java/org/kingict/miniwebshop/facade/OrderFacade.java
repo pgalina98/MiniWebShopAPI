@@ -11,6 +11,6 @@ public interface OrderFacade {
     OrderDTO getOrderById(Long orderId);
     List<OrderDTO> getAllOrders();
     void createNewOrder(OrderForm orderForm);
-    void updateOrderById(Long orderId, Order updatedOrder);
+    void updateOrderById(Long orderId, OrderForm updatedOrder);
     void deleteOrderById(Long orderId);
 }
