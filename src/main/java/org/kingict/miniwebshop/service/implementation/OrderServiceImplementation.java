@@ -38,6 +38,6 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     public void deleteOrderById(Long orderId) {
-
+        orderRepository.deleteById(orderId);
     }
 }

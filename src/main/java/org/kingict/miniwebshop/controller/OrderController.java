@@ -46,7 +46,18 @@ public class OrderController {
         orderFacade.createNewOrder(orderForm);
     }
 
-    //PUT Order
+    //PUT Order -> TODO
 
     //DELETE Order
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity deleteOrder(@PathVariable("orderId") Long orderId) {
+        OrderDTO order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        orderFacade.deleteOrderById(orderId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

@@ -47,11 +47,11 @@ public class OrderFacadeImplementation implements OrderFacade {
 
     @Override
     public void updateOrderById(Long orderId, Order updatedOrder) {
-
+        //TODO
     }
 
     @Override
     public void deleteOrderById(Long orderId) {
-
+        orderService.deleteOrderById(orderId);
     }
 }
