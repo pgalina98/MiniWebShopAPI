@@ -2,13 +2,13 @@ package org.kingict.miniwebshop.mapper.implementation;
 
 import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.entity.Order;
-import org.kingict.miniwebshop.mapper.OrderDTOMapper;
+import org.kingict.miniwebshop.mapper.OrderMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class OrderDTOMapperImplementation implements OrderDTOMapper {
+public class OrderMapperImplementation implements OrderMapper {
 
     @Override
     public OrderDTO map(Order order) {

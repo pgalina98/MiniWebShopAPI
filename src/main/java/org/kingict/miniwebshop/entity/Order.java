@@ -1,9 +1,12 @@
 package org.kingict.miniwebshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "NARUDZBA")
@@ -28,7 +31,7 @@ public class Order {
     private Double ukupnaCijenaSPopustom;
 
     @Column(name = "DATUM")
-    private LocalDate datumNarudzbe;
+    private LocalDateTime datumNarudzbe;
 
     @Column(name = "BROJ_KARTICE")
     private String brojKartice;

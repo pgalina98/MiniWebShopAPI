@@ -3,8 +3,10 @@ package org.kingict.miniwebshop.facade.implementation;
 import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.entity.Order;
 import org.kingict.miniwebshop.facade.OrderFacade;
-import org.kingict.miniwebshop.mapper.OrderDTOMapper;
+import org.kingict.miniwebshop.form.OrderForm;
+import org.kingict.miniwebshop.mapper.OrderMapper;
 import org.kingict.miniwebshop.service.OrderService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,9 +16,9 @@ import java.util.stream.Collectors;
 public class OrderFacadeImplementation implements OrderFacade {
 
     private final OrderService orderService;
-    private final OrderDTOMapper orderDTOMapper;
+    private final OrderMapper orderDTOMapper;
 
-    public OrderFacadeImplementation(OrderService orderService, OrderDTOMapper orderDTOMapper) {
+    public OrderFacadeImplementation(OrderService orderService, OrderMapper orderDTOMapper) {
         this.orderService = orderService;
         this.orderDTOMapper = orderDTOMapper;
     }
@@ -35,8 +37,12 @@ public class OrderFacadeImplementation implements OrderFacade {
     }
 
     @Override
-    public void createNewOrder(Order order) {
+    public void createNewOrder(OrderForm orderForm) {
+        Order order = new Order();
 
+        BeanUtils.copyProperties(orderForm, order);
+
+        orderService.createNewOrder(order);
     }
 
     @Override

@@ -1,14 +1,13 @@
 package org.kingict.miniwebshop.controller;
 
 import org.kingict.miniwebshop.dto.OrderDTO;
+import org.kingict.miniwebshop.entity.Order;
 import org.kingict.miniwebshop.facade.OrderFacade;
+import org.kingict.miniwebshop.form.OrderForm;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,11 +36,15 @@ public class OrderController {
 
     //Get All Orders
     @GetMapping()
-    private List<OrderDTO> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return orderFacade.getAllOrders();
     }
 
     //POST New Order
+    @PostMapping
+    public void createNewOrder(@RequestBody OrderForm orderForm) {
+        orderFacade.createNewOrder(orderForm);
+    }
 
     //PUT Order
 

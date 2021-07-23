@@ -1,4 +1,4 @@
-package org.kingict.miniwebshop.dto;
+package org.kingict.miniwebshop.form;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -6,9 +6,11 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class OrderDTO {
+public class OrderForm {
 
-    //TODO -> Add Property for List of Products
+    private Long popustKodId;
+
+    private Long nacinPlacanjaId;
 
     private Double ukupnaCijenaBezPopusta;
 
