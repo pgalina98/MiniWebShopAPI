@@ -1,12 +1,10 @@
 package org.kingict.miniwebshop.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "NARUDZBA")
@@ -47,4 +45,17 @@ public class Order {
 
     @Column(name = "NAPOMENA")
     private String napomena;
+
+    @ManyToMany(cascade = CascadeType.ALL,
+                fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "NARUDZBA_PROIZVOD",
+            joinColumns = {
+                    @JoinColumn(name = "NARUDZBA_ID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "PROIZVOD_ID")
+            }
+    )
+    private List<Product> orderProducts;
 }

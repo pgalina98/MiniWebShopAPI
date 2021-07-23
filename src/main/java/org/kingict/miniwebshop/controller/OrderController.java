@@ -1,10 +1,9 @@
 package org.kingict.miniwebshop.controller;
 
-import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.entity.Order;
+import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
 import org.kingict.miniwebshop.form.OrderForm;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,7 @@ public class OrderController {
     //GET Single Order
     @GetMapping("/{orderId}")
     public ResponseEntity getSingleOrderById(@PathVariable("orderId") Long orderId) {
-        OrderDTO order = orderFacade.getOrderById(orderId);
+        Order order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -36,41 +35,55 @@ public class OrderController {
 
     //Get All Orders
     @GetMapping()
-    public List<OrderDTO> getAllOrders() {
+    public List<Order> getAllOrders() {
         return orderFacade.getAllOrders();
     }
 
     //POST New Order
     @PostMapping
-    public void createNewOrder(@RequestBody OrderForm orderForm) {
-        orderFacade.createNewOrder(orderForm);
+    public Order createNewOrder(@RequestBody OrderForm orderForm) {
+        return orderFacade.createNewOrder(orderForm);
     }
 
-    //PUT Order -> TODO
-    @PutMapping("/{orderId}")
-    public ResponseEntity updateOrderById(@PathVariable("orderId") Long orderId,
-                                          @RequestBody OrderForm updatedOrderForm) {
-        OrderDTO order = orderFacade.getOrderById(orderId);
+    //POST Orders Products
+    @PostMapping("/{orderId}/products")
+    public ResponseEntity addProductsOfCreatedOrder(@PathVariable("orderId") Long orderId,
+                                   @RequestBody List<Product> products) {
+        Order order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-        orderFacade.updateOrderById(orderId, updatedOrderForm);
+        return new ResponseEntity(orderFacade.addProductsOfOrder(orderId, products),
+                                  HttpStatus.OK);
+    }
 
-        return null;
+    //PUT Order
+    @PutMapping("/{orderId}")
+    public ResponseEntity updateOrderById(@PathVariable("orderId") Long orderId,
+                                          @RequestBody OrderForm updatedOrderForm) {
+        Order order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(orderFacade.updateOrderById(orderId, updatedOrderForm),
+                                  HttpStatus.OK);
     }
 
     //DELETE Order
     @DeleteMapping("/{orderId}")
     public ResponseEntity deleteOrderById(@PathVariable("orderId") Long orderId) {
-        OrderDTO order = orderFacade.getOrderById(orderId);
+        Order order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
         orderFacade.deleteOrderById(orderId);
-        return new ResponseEntity(HttpStatus.OK);
+
+        return new ResponseEntity(order, HttpStatus.OK);
     }
 }
