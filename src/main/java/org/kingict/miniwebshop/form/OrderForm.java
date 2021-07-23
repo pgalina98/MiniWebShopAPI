@@ -18,7 +18,11 @@ public class OrderForm {
 
     @JsonFormat(shape=JsonFormat.Shape.STRING,
                 pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime datumNarudzbe;
+    private LocalDateTime datumKreiranjaNarudzbe;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING,
+                pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime datumAzuriranjaNarudzbe;
 
     private String brojKartice;
 

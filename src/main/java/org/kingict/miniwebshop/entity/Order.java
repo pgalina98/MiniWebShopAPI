@@ -28,8 +28,11 @@ public class Order {
     @Column(name = "UKUPNA_CIJENA_S_POPUSTOM")
     private Double ukupnaCijenaSPopustom;
 
-    @Column(name = "DATUM")
-    private LocalDateTime datumNarudzbe;
+    @Column(name = "DATUM_KREIRANJA")
+    private LocalDateTime datumKreiranjaNarudzbe;
+
+    @Column(name = "DATUM_AZURIRANJA")
+    private LocalDateTime datumAzuriranjaNarudzbe;
 
     @Column(name = "BROJ_KARTICE")
     private String brojKartice;
