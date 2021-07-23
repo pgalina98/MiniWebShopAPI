@@ -8,6 +8,7 @@ import org.kingict.miniwebshop.service.OrderService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class OrderFacadeImplementation implements OrderFacade {
@@ -27,7 +28,10 @@ public class OrderFacadeImplementation implements OrderFacade {
 
     @Override
     public List<OrderDTO> getAllOrders() {
-        return null;
+        return orderService.getAllOrders()
+                           .stream()
+                           .map(order -> orderDTOMapper.map(order))
+                           .collect(Collectors.toList());
     }
 
     @Override

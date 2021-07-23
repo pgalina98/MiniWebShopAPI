@@ -23,7 +23,7 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     public List<Order> getAllOrders() {
-        return null;
+        return orderRepository.findAll();
     }
 
     @Override
