@@ -14,4 +14,5 @@ public interface OrderFacade {
     Order updateOrderById(Long orderId, OrderForm updatedOrder);
     void deleteOrderById(Long orderId);
     Order addProductsOfOrder(Long orderId, List<Product> products);
+    List<Product> getAllProductsOfOrder(Long orderId);
 }

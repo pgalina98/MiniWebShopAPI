@@ -58,4 +58,9 @@ public class OrderFacadeImplementation implements OrderFacade {
 
         return orderService.addProductsOfOrder(order);
     }
+
+    @Override
+    public List<Product> getAllProductsOfOrder(Long orderId) {
+        return orderService.getAllProductsOfOrder(orderId);
+    }
 }

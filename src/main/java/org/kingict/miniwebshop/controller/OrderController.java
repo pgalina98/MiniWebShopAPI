@@ -39,6 +39,19 @@ public class OrderController {
         return orderFacade.getAllOrders();
     }
 
+    //Get All Order Products
+    @GetMapping("/{orderId}/products")
+    public ResponseEntity getAllProductsOfOrder(@PathVariable("orderId") Long orderId) {
+        Order order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(orderFacade.getAllProductsOfOrder(orderId),
+                                  HttpStatus.OK);
+    }
+
     //POST New Order
     @PostMapping
     public Order createNewOrder(@RequestBody OrderForm orderForm) {
@@ -48,7 +61,7 @@ public class OrderController {
     //POST Orders Products
     @PostMapping("/{orderId}/products")
     public ResponseEntity addProductsOfCreatedOrder(@PathVariable("orderId") Long orderId,
-                                   @RequestBody List<Product> products) {
+                                                    @RequestBody List<Product> products) {
         Order order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {

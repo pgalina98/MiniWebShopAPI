@@ -1,6 +1,7 @@
 package org.kingict.miniwebshop.service.implementation;
 
 import org.kingict.miniwebshop.entity.Order;
+import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.repository.OrderRepository;
 import org.kingict.miniwebshop.service.OrderService;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,12 @@ public class OrderServiceImplementation implements OrderService {
     @Override
     public Order addProductsOfOrder(Order order) {
         return (Order) orderRepository.save(order);
+    }
+
+    @Override
+    public List<Product> getAllProductsOfOrder(Long orderId) {
+        Order order = orderRepository.findOrderById(orderId);
+
+        return order.getOrderProducts();
     }
 }
