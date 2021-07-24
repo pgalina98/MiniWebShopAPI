@@ -1,9 +1,11 @@
 package org.kingict.miniwebshop.facade.implementation;
 
 import org.kingict.miniwebshop.entity.Order;
+import org.kingict.miniwebshop.entity.OrderProduct;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
 import org.kingict.miniwebshop.form.OrderForm;
+import org.kingict.miniwebshop.service.OrderProductService;
 import org.kingict.miniwebshop.service.OrderService;
 import org.kingict.miniwebshop.service.ProductService;
 import org.springframework.beans.BeanUtils;
@@ -16,10 +18,12 @@ public class OrderFacadeImplementation implements OrderFacade {
 
     private final OrderService orderService;
     private final ProductService productService;
+    private final OrderProductService orderProductService;
 
-    public OrderFacadeImplementation(OrderService orderService, ProductService productService) {
+    public OrderFacadeImplementation(OrderService orderService, ProductService productService, OrderProductService orderProductService) {
         this.orderService = orderService;
         this.productService = productService;
+        this.orderProductService = orderProductService;
     }
 
     @Override
@@ -57,17 +61,28 @@ public class OrderFacadeImplementation implements OrderFacade {
     @Override
     public Order addProductsOfOrder(Long orderId, List<Product> products) {
         Order order = orderService.getOrderById(orderId);
-        order.getOrderProducts().addAll(products);
 
+        products.forEach(product -> {
+            updateProductsOfOrder(orderId, product);
+        });
         updateQuantityOfProducts(products);
 
         return orderService.addProductsOfOrder(order);
     }
 
+    private void updateProductsOfOrder(Long orderId, Product product) {
+        OrderProduct orderProduct = new OrderProduct();
+        orderProduct.setNarudzbaId(orderId);
+        orderProduct.setProizvodId(product.getId());
+        orderProduct.setKolicina(product.getDostupnaKolicina());
+
+        orderProductService.createNewOrderProduct(orderProduct);
+    }
+
     private void updateQuantityOfProducts(List<Product> orderedProducts) {
         orderedProducts.forEach(product -> {
             Product updatedProduct = productService.getProductById(product.getId());
-            updatedProduct.setKolicina(updatedProduct.getKolicina() - product.getKolicina());
+            updatedProduct.setDostupnaKolicina(updatedProduct.getDostupnaKolicina() - product.getDostupnaKolicina());
 
             productService.updateProduct(updatedProduct);
         });
@@ -75,7 +90,9 @@ public class OrderFacadeImplementation implements OrderFacade {
 
     @Override
     public List<Product> getAllProductsOfOrder(Long orderId) {
-        return orderService.getAllProductsOfOrder(orderId);
+        List<Product> products = productService.getOrderProducts(orderId);
+
+        return products;
     }
 
     @Override

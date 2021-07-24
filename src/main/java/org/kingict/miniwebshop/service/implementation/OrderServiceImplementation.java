@@ -51,7 +51,7 @@ public class OrderServiceImplementation implements OrderService {
     public List<Product> getAllProductsOfOrder(Long orderId) {
         Order order = orderRepository.findOrderById(orderId);
 
-        return order.getOrderProducts();
+        return null;
     }
 
     @Override

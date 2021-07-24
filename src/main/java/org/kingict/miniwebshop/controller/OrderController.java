@@ -114,9 +114,19 @@ public class OrderController {
         }
 
         Product product = order.getOrderProducts().stream()
+                                                  .filter(op -> op.getProduct()
+                                                                  .getId()
+                                                              .equals(productId))
+                                                  .findFirst()
+                                                  .map(orderProduct -> {
+                                                      return orderProduct.getProduct();
+                                                  })
+                                                  .orElse(null);
+
+        /*Product product = order.getOrderProducts().stream()
                                                   .filter(p -> p.getId().equals(productId))
                                                   .findFirst()
-                                                  .orElse(null);
+                                                  .orElse(null);*/
 
         if(Objects.isNull(product)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);

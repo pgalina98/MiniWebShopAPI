@@ -6,6 +6,8 @@ import org.kingict.miniwebshop.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductFacadeImplementation implements ProductFacade {
 
@@ -26,5 +28,10 @@ public class ProductFacadeImplementation implements ProductFacade {
 
         BeanUtils.copyProperties(updatedProduct, product);
         return productService.updateProduct(product);
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 }

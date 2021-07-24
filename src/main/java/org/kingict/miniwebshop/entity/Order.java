@@ -1,9 +1,11 @@
 package org.kingict.miniwebshop.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -49,15 +51,17 @@ public class Order {
     @Column(name = "NAPOMENA")
     private String napomena;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "NARUDZBA_PROIZVOD",
-            joinColumns = {
-                    @JoinColumn(name = "NARUDZBA_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "PROIZVOD_ID")
-            }
-    )
-    private List<Product> orderProducts;
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "order-orderProduct")
+    private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "POPUST_KOD_ID", insertable = false, updatable = false)
+    @JsonBackReference(value = "order-discountCode")
+    private DiscountCode discountCode;
+
+    @ManyToOne
+    @JoinColumn(name = "NACIN_PLACANJA_ID", insertable = false, updatable = false)
+    @JsonBackReference(value = "order-paymentMethod")
+    private PaymentMethod paymentMethod;
 }

@@ -1,9 +1,10 @@
 package org.kingict.miniwebshop.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,11 +30,14 @@ public class Product {
     private Double cijena;
 
     @Column(name = "KOLICINA")
-    private Integer kolicina;
+    private Integer dostupnaKolicina;
 
-    @ManyToMany(mappedBy = "orderProducts",
-                cascade = CascadeType.MERGE,
-                fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Order> productOrders;
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "product-orderProduct")
+    private List<OrderProduct> productOrders = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "BRAND_ID", insertable = false, updatable = false)
+    @JsonBackReference(value = "product-brand")
+    private Brand brand;
 }

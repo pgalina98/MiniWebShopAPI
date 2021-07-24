@@ -5,6 +5,8 @@ import org.kingict.miniwebshop.repository.ProductRepository;
 import org.kingict.miniwebshop.service.ProductService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImplementation implements ProductService {
 
@@ -22,5 +24,15 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public Product updateProduct(Product updatedProduct) {
         return (Product) productRepository.save(updatedProduct);
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> getOrderProducts(Long orderId) {
+        return productRepository.findProductsOfOrderById(orderId);
     }
 }
