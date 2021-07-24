@@ -29,7 +29,7 @@ INSERT INTO PROIZVOD(BRAND_ID, NAZIV, OPIS, CIJENA, KOLICINA) VALUES
     (3, 'Hladnjak za prijenosno računalo MS FREEZE DUAL 2', 'MS FREEZE DUAL 2 - hladnjak za prijenosna računala s dva ventilatora primjenjiv na 15.6" i 17.1" modelima prijenosnih računala. Tihi rad, dva ventilatora brzine do 1.000 okretaja, anti-slip podloga, plavo LED svjetlo te dvije moguće visine optimalan su dodatak svakom prijenosnom računalu. Uz dva dodatna USB priključka ne gubite niti jedan USB port za napajanje.', 109.00, 50),
     (4, 'Laptop ACER Aspire 5', 'Iza mnogo dostupnih boja ovog atraktivnog prijenosnog računala kriju se različiti moćni procesori i grafičke kartice koje će korisnicima omogućiti da na najbolji način iskoriste njegov velik zaslon. Kao što biste i očekivali od prijenosnog računala ovog kalibra, opremljeno je i brzom Wi-Fi vezom te mnoštvom memorije i prostora za pohranu.', 5790.25, 6),
     (5, 'Laptop HP 250 G8', 'Laptop HP 250 ide u korak s mobilnim stilovima rada tankog i laganog dizajna. Prekrasan zaslon uskog dizajna obruba i velikog omjera zaslona i tijela pruža dovoljno prostora za rad ili streaming sadržaj.Izgrađen za posao i spreman za zabavu.', 3899.00, 1),
-    (6, 'Laptop LENOVO Legion ', 'Dominirajte prostorijom i top listom uz Legion 5 seriju laptopa, koji su dizajnirani s mnoštvom opcija visokih performansi, a pritom zadržavaju minimalistički izgled i nadopunjuju vaš životni stil. Doživite svaki detalj i trenirajte nadljudske reflekse uz FHD zaslone s osvježavanjem prikaza do 240 Hz, svjetlinom od 500 nita i 100 % pokrivenošću sRGB prostora boja.', 7999.00, 3),
+    (6, 'Laptop LENOVO Legion', 'Dominirajte prostorijom i top listom uz Legion 5 seriju laptopa, koji su dizajnirani s mnoštvom opcija visokih performansi, a pritom zadržavaju minimalistički izgled i nadopunjuju vaš životni stil. Doživite svaki detalj i trenirajte nadljudske reflekse uz FHD zaslone s osvježavanjem prikaza do 240 Hz, svjetlinom od 500 nita i 100 % pokrivenošću sRGB prostora boja.', 7999.00, 3),
     (7, 'Električni romobil XIAOMI MI PRO 2', 'Mi Electric Scooter Pro2 je izrađen od visokog aluminija i skoro zanemarive težine od 14 kg, s razlogom nosi titulu jednog od najtraženijih električnih romobila na tržištu. Električni kočni ABS sustav i mogućnost brzog oporavka energije, čini ga efikasnim prijevoznim sredstvom. Povećani kapacitet baterije, veliko napajanje i učinkovito ubrzanje omogućuju vožnju od 45 km sa samo jednim punjenjem baterije. Pametni sustav upravljanja nudi šest različitih zaštitnih mjera, a pored navedenog, tehnološki napredni romobil može se povezati na pametni telefon putem aplikacije Mi Home uz pomoć koje možete pratiti prijeđene kilometre te promatrati izdržljivost baterije.', 4498.95, 4);
 
 DROP TABLE IF EXISTS NACIN_PLACANJA CASCADE;
@@ -80,9 +80,10 @@ DROP TABLE IF EXISTS NARUDZBA_PROIZVOD CASCADE;
 CREATE TABLE NARUDZBA_PROIZVOD(
     ID SERIAL PRIMARY KEY,
     NARUDZBA_ID INTEGER,
-    PROIZVOD_ID INTEGER
+    PROIZVOD_ID INTEGER,
+    KOLICINA INTEGER
 );
 
-INSERT INTO NARUDZBA_PROIZVOD(NARUDZBA_ID, PROIZVOD_ID) VALUES
-    (1, 1),
-    (1, 2);
+INSERT INTO NARUDZBA_PROIZVOD(NARUDZBA_ID, PROIZVOD_ID, KOLICINA) VALUES
+    (1, 1, 1),
+    (1, 2, 1);

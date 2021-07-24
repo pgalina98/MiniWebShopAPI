@@ -49,8 +49,7 @@ public class Order {
     @Column(name = "NAPOMENA")
     private String napomena;
 
-    @ManyToMany(cascade = CascadeType.ALL,
-                fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "NARUDZBA_PROIZVOD",
             joinColumns = {

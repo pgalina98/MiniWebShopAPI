@@ -3,6 +3,7 @@ package org.kingict.miniwebshop.controller;
 import org.kingict.miniwebshop.entity.Order;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
+import org.kingict.miniwebshop.facade.ProductFacade;
 import org.kingict.miniwebshop.form.OrderForm;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,11 @@ import java.util.Objects;
 public class OrderController {
 
     private final OrderFacade orderFacade;
+    private final ProductFacade productFacade;
 
-    public OrderController(OrderFacade orderFacade) {
+    public OrderController(OrderFacade orderFacade, ProductFacade productFacade) {
         this.orderFacade = orderFacade;
+        this.productFacade = productFacade;
     }
 
     //GET Single Order
@@ -33,43 +36,16 @@ public class OrderController {
         return new ResponseEntity(order, HttpStatus.OK);
     }
 
-    //Get All Orders
+    //GET All Orders
     @GetMapping()
     public List<Order> getAllOrders() {
         return orderFacade.getAllOrders();
-    }
-
-    //Get All Order Products
-    @GetMapping("/{orderId}/products")
-    public ResponseEntity getAllProductsOfOrder(@PathVariable("orderId") Long orderId) {
-        Order order = orderFacade.getOrderById(orderId);
-
-        if(Objects.isNull(order)) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(orderFacade.getAllProductsOfOrder(orderId),
-                                  HttpStatus.OK);
     }
 
     //POST New Order
     @PostMapping
     public Order createNewOrder(@RequestBody OrderForm orderForm) {
         return orderFacade.createNewOrder(orderForm);
-    }
-
-    //POST Orders Products
-    @PostMapping("/{orderId}/products")
-    public ResponseEntity addProductsOfCreatedOrder(@PathVariable("orderId") Long orderId,
-                                                    @RequestBody List<Product> products) {
-        Order order = orderFacade.getOrderById(orderId);
-
-        if(Objects.isNull(order)) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(orderFacade.addProductsOfOrder(orderId, products),
-                                  HttpStatus.OK);
     }
 
     //PUT Order
@@ -98,5 +74,46 @@ public class OrderController {
         orderFacade.deleteOrderById(orderId);
 
         return new ResponseEntity(order, HttpStatus.OK);
+    }
+
+    //GET All Order Products
+    @GetMapping("/{orderId}/products")
+    public ResponseEntity getAllProductsOfOrder(@PathVariable("orderId") Long orderId) {
+        Order order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(orderFacade.getAllProductsOfOrder(orderId),
+                                  HttpStatus.OK);
+    }
+
+    //POST Orders Products
+    @PostMapping("/{orderId}/products")
+    public ResponseEntity addProductsOfCreatedOrder(@PathVariable("orderId") Long orderId,
+                                                    @RequestBody List<Product> products) {
+        Order order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(orderFacade.addProductsOfOrder(orderId, products),
+                                  HttpStatus.OK);
+    }
+
+    //DELETE Orders Product
+    @PostMapping("/{orderId}/products/{productId}")
+    public ResponseEntity removeProductFromOrder(@PathVariable("orderId") Long orderId,
+                                                 @PathVariable("productId") Long productId) {
+        Order order = orderFacade.getOrderById(orderId);
+
+        if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(orderFacade.removeProductFromOrder(orderId, productId),
+                                  HttpStatus.OK);
     }
 }

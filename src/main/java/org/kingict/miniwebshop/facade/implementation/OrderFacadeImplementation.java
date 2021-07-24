@@ -5,6 +5,7 @@ import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
 import org.kingict.miniwebshop.form.OrderForm;
 import org.kingict.miniwebshop.service.OrderService;
+import org.kingict.miniwebshop.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +15,11 @@ import java.util.List;
 public class OrderFacadeImplementation implements OrderFacade {
 
     private final OrderService orderService;
+    private final ProductService productService;
 
-    public OrderFacadeImplementation(OrderService orderService) {
+    public OrderFacadeImplementation(OrderService orderService, ProductService productService) {
         this.orderService = orderService;
+        this.productService = productService;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class OrderFacadeImplementation implements OrderFacade {
         Order order = orderService.getOrderById(orderId);
 
         BeanUtils.copyProperties(updatedOrder, order);
-        return orderService.updateOrderById(order);
+        return orderService.updateOrder(order);
     }
 
     @Override
@@ -56,11 +59,30 @@ public class OrderFacadeImplementation implements OrderFacade {
         Order order = orderService.getOrderById(orderId);
         order.getOrderProducts().addAll(products);
 
+        updateQuantityOfProducts(products);
+
         return orderService.addProductsOfOrder(order);
+    }
+
+    private void updateQuantityOfProducts(List<Product> orderedProducts) {
+        orderedProducts.forEach(product -> {
+            Product updatedProduct = productService.getProductById(product.getId());
+            updatedProduct.setKolicina(updatedProduct.getKolicina() - product.getKolicina());
+
+            productService.updateProduct(updatedProduct);
+        });
     }
 
     @Override
     public List<Product> getAllProductsOfOrder(Long orderId) {
         return orderService.getAllProductsOfOrder(orderId);
+    }
+
+    @Override
+    public Order removeProductFromOrder(Long orderId, Long productId) {
+        Order order = orderService.getOrderById(orderId);
+        order.getOrderProducts().removeIf(product -> product.getId().equals(productId));
+
+        return orderService.removeProductFromOrder(order);
     }
 }

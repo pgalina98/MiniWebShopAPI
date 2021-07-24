@@ -19,8 +19,6 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     public Order getOrderById(Long orderId) {
-        Order order = orderRepository.findOrderById(orderId);
-
         return orderRepository.findOrderById(orderId);
     }
 
@@ -35,7 +33,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public Order updateOrderById(Order updatedOrder) {
+    public Order updateOrder(Order updatedOrder) {
         return (Order) orderRepository.save(updatedOrder);
     }
 
@@ -54,5 +52,10 @@ public class OrderServiceImplementation implements OrderService {
         Order order = orderRepository.findOrderById(orderId);
 
         return order.getOrderProducts();
+    }
+
+    @Override
+    public Order removeProductFromOrder(Order order) {
+        return (Order) orderRepository.save(order);
     }
 }

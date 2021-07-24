@@ -32,6 +32,7 @@ public class Product {
     private Integer kolicina;
 
     @ManyToMany(mappedBy = "orderProducts",
+                cascade = CascadeType.MERGE,
                 fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Order> productOrders;
