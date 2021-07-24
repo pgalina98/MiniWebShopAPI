@@ -104,12 +104,21 @@ public class OrderController {
     }
 
     //DELETE Orders Product
-    @PostMapping("/{orderId}/products/{productId}")
+    @DeleteMapping("/{orderId}/products/{productId}")
     public ResponseEntity removeProductFromOrder(@PathVariable("orderId") Long orderId,
                                                  @PathVariable("productId") Long productId) {
         Order order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        Product product = order.getOrderProducts().stream()
+                                                  .filter(p -> p.getId().equals(productId))
+                                                  .findFirst()
+                                                  .orElse(null);
+
+        if(Objects.isNull(product)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
