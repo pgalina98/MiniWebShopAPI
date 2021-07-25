@@ -3,9 +3,12 @@ package org.kingict.miniwebshop.controller;
 import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.facade.ProductFacade;
 import org.kingict.miniwebshop.form.ProductForm;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/products")
@@ -33,5 +36,19 @@ public class ProductController {
     @PostMapping
     public ProductDTO createNewProduct(@RequestBody ProductForm productForm) {
         return productFacade.createNewProduct(productForm);
+    }
+
+    //DELETE Product
+    @DeleteMapping("/{productId}")
+    public ResponseEntity deleteProductById(@PathVariable("productId") Long productId) {
+        ProductDTO product = productFacade.getProductById(productId);
+
+        if(Objects.isNull(product)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        productFacade.deleteProductById(productId);
+
+        return new ResponseEntity(product, HttpStatus.OK);
     }
 }

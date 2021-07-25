@@ -48,4 +48,9 @@ public class ProductFacadeImplementation implements ProductFacade {
 
         return productDTOMapper.map(productService.createNewProduct(product));
     }
+
+    @Override
+    public void deleteProductById(Long productId) {
+        productService.deleteProductById(productId);
+    }
 }
