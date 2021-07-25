@@ -5,9 +5,12 @@ import org.kingict.miniwebshop.dto.DiscountCodeDTO;
 import org.kingict.miniwebshop.facade.DiscountCodeFacade;
 import org.kingict.miniwebshop.form.BrandForm;
 import org.kingict.miniwebshop.form.DiscountCodeForm;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/discount-codes")
@@ -38,6 +41,18 @@ public class DiscountCodeController {
     }
 
     //PUT Discount Code
+    @PutMapping("/{discountCodeId}")
+    public ResponseEntity updateDiscountCodeById(@PathVariable("discountCodeId") Long discountCodeId,
+                                                 @RequestBody DiscountCodeForm updatedDiscountCodeForm) {
+        DiscountCodeDTO discountCode = discountCodeFacade.getDiscountCodeById(discountCodeId);
+
+        if(Objects.isNull(discountCode)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(discountCodeFacade.updateDiscountCodeById(discountCodeId, updatedDiscountCodeForm),
+                                  HttpStatus.OK);
+    }
 
     //DELETE Discount Code
 }

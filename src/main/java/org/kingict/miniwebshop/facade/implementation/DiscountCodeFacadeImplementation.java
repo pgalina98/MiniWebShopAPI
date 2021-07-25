@@ -43,8 +43,12 @@ public class DiscountCodeFacadeImplementation implements DiscountCodeFacade {
     }
 
     @Override
-    public DiscountCodeDTO updateDiscountCodeById(Long discountCodeId, OrderForm updatedDiscountCode) {
-        return null;
+    public DiscountCodeDTO updateDiscountCodeById(Long discountCodeId, DiscountCodeForm updatedDiscountCode) {
+        DiscountCode discountCode = discountCodeService.getDiscountCodeById(discountCodeId);
+
+        BeanUtils.copyProperties(updatedDiscountCode, discountCode);
+
+        return discountCodeDTOMapper.map(discountCodeService.updateDiscountCode(discountCode));
     }
 
     @Override

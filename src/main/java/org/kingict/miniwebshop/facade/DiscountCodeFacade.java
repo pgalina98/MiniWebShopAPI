@@ -12,6 +12,6 @@ public interface DiscountCodeFacade {
     DiscountCodeDTO getDiscountCodeById(Long discountCodeId);
     List<DiscountCodeDTO> getAllDiscountCodes();
     DiscountCodeDTO createNewDiscountCode(DiscountCodeForm discountCodeForm);
-    DiscountCodeDTO updateDiscountCodeById(Long discountCodeId, OrderForm updatedDiscountCode);
+    DiscountCodeDTO updateDiscountCodeById(Long discountCodeId, DiscountCodeForm updatedDiscountCode);
     void deleteDiscountCodeById(Long discountCodeId);
 }

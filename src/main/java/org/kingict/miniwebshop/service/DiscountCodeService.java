@@ -12,6 +12,6 @@ public interface DiscountCodeService {
     DiscountCode getDiscountCodeById(Long discountCodeId);
     List<DiscountCode> getAllDiscountCodes();
     DiscountCode createNewDiscountCode(DiscountCode discountCode);
-    DiscountCode updateDiscountCodeById(DiscountCode updatedDiscountCode);
+    DiscountCode updateDiscountCode(DiscountCode updatedDiscountCode);
     void deleteDiscountCodeById(Long discountCodeId);
 }
