@@ -27,8 +27,8 @@ public class BrandServiceImplementation implements BrandService {
     }
 
     @Override
-    public Brand createNewBrand(Brand brandForm) {
-        return null;
+    public Brand createNewBrand(Brand brand) {
+        return (Brand) brandRepository.save(brand);
     }
 
     @Override

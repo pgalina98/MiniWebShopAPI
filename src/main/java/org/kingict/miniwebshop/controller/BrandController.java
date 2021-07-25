@@ -1,11 +1,11 @@
 package org.kingict.miniwebshop.controller;
 
 import org.kingict.miniwebshop.dto.BrandDTO;
+import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.facade.BrandFacade;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.kingict.miniwebshop.form.BrandForm;
+import org.kingict.miniwebshop.form.OrderForm;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +32,10 @@ public class BrandController {
     }
 
     //POST New Brand
+    @PostMapping
+    public BrandDTO createNewBrand(@RequestBody BrandForm brandForm) {
+        return brandFacade.createNewBrand(brandForm);
+    }
 
     //DELETE Brand
 

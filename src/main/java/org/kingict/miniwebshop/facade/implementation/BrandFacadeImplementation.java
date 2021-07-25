@@ -1,13 +1,16 @@
 package org.kingict.miniwebshop.facade.implementation;
 
 import org.kingict.miniwebshop.dto.BrandDTO;
+import org.kingict.miniwebshop.entity.Brand;
 import org.kingict.miniwebshop.facade.BrandFacade;
 import org.kingict.miniwebshop.form.BrandForm;
 import org.kingict.miniwebshop.mapper.BrandDTOMapper;
 import org.kingict.miniwebshop.service.BrandService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class BrandFacadeImplementation implements BrandFacade {
@@ -32,7 +35,12 @@ public class BrandFacadeImplementation implements BrandFacade {
 
     @Override
     public BrandDTO createNewBrand(BrandForm brandForm) {
-        return null;
+        Brand brand = new Brand();
+
+        BeanUtils.copyProperties(brandForm, brand);
+        brand.setNaziv(brand.getNaziv().toUpperCase());
+
+        return brandDTOMapper.map(brandService.createNewBrand(brand));
     }
 
     @Override
