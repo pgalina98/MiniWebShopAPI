@@ -50,6 +50,6 @@ public class BrandFacadeImplementation implements BrandFacade {
 
     @Override
     public void deleteBrandById(Long brandId) {
-
+        brandService.deleteBrandById(brandId);
     }
 }

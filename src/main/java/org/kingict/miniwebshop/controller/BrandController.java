@@ -5,9 +5,12 @@ import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.facade.BrandFacade;
 import org.kingict.miniwebshop.form.BrandForm;
 import org.kingict.miniwebshop.form.OrderForm;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/brands")
@@ -38,6 +41,18 @@ public class BrandController {
     }
 
     //DELETE Brand
+    @DeleteMapping("/{brandId}")
+    public ResponseEntity deleteBrandById(@PathVariable("brandId") Long brandId) {
+        BrandDTO brand = brandFacade.getBrandById(brandId);
+
+        if(Objects.isNull(brand)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        brandFacade.deleteBrandById(brandId);
+
+        return new ResponseEntity(brand, HttpStatus.OK);
+    }
 
     //GET All Brand Products
 }

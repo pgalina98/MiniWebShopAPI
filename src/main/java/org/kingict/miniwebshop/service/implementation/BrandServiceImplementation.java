@@ -38,6 +38,6 @@ public class BrandServiceImplementation implements BrandService {
 
     @Override
     public void deleteBrandById(Long brandId) {
-
+        brandRepository.deleteById(brandId);
     }
 }
