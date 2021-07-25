@@ -3,6 +3,7 @@ package org.kingict.miniwebshop.facade.implementation;
 import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.ProductFacade;
+import org.kingict.miniwebshop.form.ProductForm;
 import org.kingict.miniwebshop.mapper.ProductDTOMapper;
 import org.kingict.miniwebshop.service.ProductService;
 import org.springframework.beans.BeanUtils;
@@ -37,5 +38,14 @@ public class ProductFacadeImplementation implements ProductFacade {
     @Override
     public List<ProductDTO> getAllProducts() {
         return productDTOMapper.map(productService.getAllProducts());
+    }
+
+    @Override
+    public ProductDTO createNewProduct(ProductForm productForm) {
+        Product product = new Product();
+
+        BeanUtils.copyProperties(productForm, product);
+
+        return productDTOMapper.map(productService.createNewProduct(product));
     }
 }
