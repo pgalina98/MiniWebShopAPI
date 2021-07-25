@@ -50,6 +50,15 @@ public class ProductFacadeImplementation implements ProductFacade {
     }
 
     @Override
+    public ProductDTO updateProductById(Long productId, ProductForm updatedProduct) {
+        Product product = productService.getProductById(productId);
+
+        BeanUtils.copyProperties(updatedProduct, product);
+
+        return productDTOMapper.map(productService.updateProduct(product));
+    }
+
+    @Override
     public void deleteProductById(Long productId) {
         productService.deleteProductById(productId);
     }

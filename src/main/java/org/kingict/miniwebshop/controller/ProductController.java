@@ -1,6 +1,7 @@
 package org.kingict.miniwebshop.controller;
 
 import org.kingict.miniwebshop.dto.ProductDTO;
+import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.ProductFacade;
 import org.kingict.miniwebshop.form.ProductForm;
 import org.springframework.http.HttpStatus;
@@ -50,5 +51,19 @@ public class ProductController {
         productFacade.deleteProductById(productId);
 
         return new ResponseEntity(product, HttpStatus.OK);
+    }
+
+    //PUT Product
+    @PutMapping("/{productId}")
+    public ResponseEntity updateOrderById(@PathVariable("productId") Long productId,
+                                          @RequestBody ProductForm updatedProductForm) {
+        ProductDTO product = productFacade.getProductById(productId);
+
+        if(Objects.isNull(product)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(productFacade.updateProductById(productId, updatedProductForm),
+                                  HttpStatus.OK);
     }
 }

@@ -14,5 +14,6 @@ public interface ProductFacade {
     Product updateProductById(Long productId, Product product);
     List<ProductDTO> getAllProducts();
     ProductDTO createNewProduct(ProductForm productForm);
+    ProductDTO updateProductById(Long productId, ProductForm updatedProduct);
     void deleteProductById(Long productId);
 }

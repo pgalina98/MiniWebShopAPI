@@ -31,17 +31,7 @@ public class ProductDTOMapperImplementation implements ProductDTOMapper {
     @Override
     public List<ProductDTO> map(List<Product> products) {
         return products.stream()
-                       .map(p -> {
-           ProductDTO productDTO = new ProductDTO();
-
-           productDTO.setId(p.getId());
-           productDTO.setBrand(p.getBrand());
-           productDTO.setNaziv(p.getNaziv());
-           productDTO.setOpis(p.getOpis());
-           productDTO.setCijena(p.getCijena());
-           productDTO.setDostupnaKolicina(p.getDostupnaKolicina());
-
-           return productDTO;
-       }).collect(Collectors.toList());
+                       .map(p -> map(p))
+                       .collect(Collectors.toList());
     }
 }
