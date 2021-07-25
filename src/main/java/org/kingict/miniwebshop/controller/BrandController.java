@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/brands")
 public class BrandController {
@@ -24,6 +26,10 @@ public class BrandController {
     }
 
     //GET All Brands
+    @GetMapping
+    public List<BrandDTO> getAllBrands() {
+        return brandFacade.getAllBrands();
+    }
 
     //POST New Brand
 

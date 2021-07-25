@@ -27,7 +27,7 @@ public class BrandFacadeImplementation implements BrandFacade {
 
     @Override
     public List<BrandDTO> getAllBrands() {
-        return null;
+        return brandDTOMapper.map(brandService.getAllBrands());
     }
 
     @Override
