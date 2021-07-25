@@ -1,10 +1,12 @@
 package org.kingict.miniwebshop.facade.implementation;
 
+import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.entity.Order;
 import org.kingict.miniwebshop.entity.OrderProduct;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
 import org.kingict.miniwebshop.form.OrderForm;
+import org.kingict.miniwebshop.mapper.OrderDTOMapper;
 import org.kingict.miniwebshop.service.OrderProductService;
 import org.kingict.miniwebshop.service.OrderService;
 import org.kingict.miniwebshop.service.ProductService;
@@ -19,38 +21,41 @@ public class OrderFacadeImplementation implements OrderFacade {
     private final OrderService orderService;
     private final ProductService productService;
     private final OrderProductService orderProductService;
+    private final OrderDTOMapper orderDTOMapper;
 
-    public OrderFacadeImplementation(OrderService orderService, ProductService productService, OrderProductService orderProductService) {
+    public OrderFacadeImplementation(OrderService orderService, ProductService productService, OrderProductService orderProductService, OrderDTOMapper orderDTOMapper) {
         this.orderService = orderService;
         this.productService = productService;
         this.orderProductService = orderProductService;
+        this.orderDTOMapper = orderDTOMapper;
     }
 
     @Override
-    public Order getOrderById(Long orderId) {
-        return orderService.getOrderById(orderId);
+    public OrderDTO getOrderById(Long orderId) {
+        return orderDTOMapper.map(orderService.getOrderById(orderId));
     }
 
     @Override
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public List<OrderDTO> getAllOrders() {
+        return orderDTOMapper.map(orderService.getAllOrders());
     }
 
     @Override
-    public Order createNewOrder(OrderForm orderForm) {
+    public OrderDTO createNewOrder(OrderForm orderForm) {
         Order order = new Order();
 
         BeanUtils.copyProperties(orderForm, order);
 
-        return orderService.createNewOrder(order);
+        return orderDTOMapper.map(orderService.createNewOrder(order));
     }
 
     @Override
-    public Order updateOrderById(Long orderId, OrderForm updatedOrder) {
+    public OrderDTO updateOrderById(Long orderId, OrderForm updatedOrder) {
         Order order = orderService.getOrderById(orderId);
 
         BeanUtils.copyProperties(updatedOrder, order);
-        return orderService.updateOrder(order);
+
+        return orderDTOMapper.map(orderService.updateOrder(order));
     }
 
     @Override
@@ -59,7 +64,7 @@ public class OrderFacadeImplementation implements OrderFacade {
     }
 
     @Override
-    public Order addProductsOfOrder(Long orderId, List<Product> products) {
+    public OrderDTO addProductsOfOrder(Long orderId, List<Product> products) {
         Order order = orderService.getOrderById(orderId);
 
         products.forEach(product -> {
@@ -67,7 +72,7 @@ public class OrderFacadeImplementation implements OrderFacade {
         });
         updateQuantityOfProducts(products);
 
-        return orderService.addProductsOfOrder(order);
+        return orderDTOMapper.map(orderService.addProductsOfOrder(order));
     }
 
     private void updateProductsOfOrder(Long orderId, Product product) {
@@ -96,10 +101,10 @@ public class OrderFacadeImplementation implements OrderFacade {
     }
 
     @Override
-    public Order removeProductFromOrder(Long orderId, Long productId) {
+    public OrderDTO removeProductFromOrder(Long orderId, Long productId) {
         Order order = orderService.getOrderById(orderId);
         order.getOrderProducts().removeIf(product -> product.getId().equals(productId));
 
-        return orderService.removeProductFromOrder(order);
+        return orderDTOMapper.map(orderService.removeProductFromOrder(order));
     }
 }

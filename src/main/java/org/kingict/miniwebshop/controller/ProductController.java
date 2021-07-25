@@ -1,5 +1,6 @@
 package org.kingict.miniwebshop.controller;
 
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.ProductFacade;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +22,13 @@ public class ProductController {
 
     //GET Single Product
     @GetMapping("/{productId}")
-    public Product getSingleProduct(@PathVariable("productId") Long productId) {
+    public ProductDTO getSingleProduct(@PathVariable("productId") Long productId) {
         return productFacade.getProductById(productId);
     }
 
     //GET All Products
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
         return productFacade.getAllProducts();
     }
 }

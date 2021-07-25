@@ -1,6 +1,6 @@
 package org.kingict.miniwebshop.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +10,9 @@ import java.util.List;
 @Entity
 @Table(name = "BRAND")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+                  property = "id",
+                  scope = Brand.class)
 public class Brand {
 
     @Id
@@ -21,6 +24,7 @@ public class Brand {
     private String naziv;
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "product-brand")
+    //@JsonBackReference(value = "product-brand")
+    @JsonIgnore
     private List<Product> brandProducts = new ArrayList<>();
 }

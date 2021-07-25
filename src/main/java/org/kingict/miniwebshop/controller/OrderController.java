@@ -1,6 +1,7 @@
 package org.kingict.miniwebshop.controller;
 
-import org.kingict.miniwebshop.entity.Order;
+import org.kingict.miniwebshop.dto.OrderDTO;
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
 import org.kingict.miniwebshop.facade.ProductFacade;
@@ -27,7 +28,7 @@ public class OrderController {
     //GET Single Order
     @GetMapping("/{orderId}")
     public ResponseEntity getSingleOrderById(@PathVariable("orderId") Long orderId) {
-        Order order = orderFacade.getOrderById(orderId);
+        OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -38,13 +39,13 @@ public class OrderController {
 
     //GET All Orders
     @GetMapping()
-    public List<Order> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return orderFacade.getAllOrders();
     }
 
     //POST New Order
     @PostMapping
-    public Order createNewOrder(@RequestBody OrderForm orderForm) {
+    public OrderDTO createNewOrder(@RequestBody OrderForm orderForm) {
         return orderFacade.createNewOrder(orderForm);
     }
 
@@ -52,7 +53,7 @@ public class OrderController {
     @PutMapping("/{orderId}")
     public ResponseEntity updateOrderById(@PathVariable("orderId") Long orderId,
                                           @RequestBody OrderForm updatedOrderForm) {
-        Order order = orderFacade.getOrderById(orderId);
+        OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -65,7 +66,7 @@ public class OrderController {
     //DELETE Order
     @DeleteMapping("/{orderId}")
     public ResponseEntity deleteOrderById(@PathVariable("orderId") Long orderId) {
-        Order order = orderFacade.getOrderById(orderId);
+        OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -79,7 +80,7 @@ public class OrderController {
     //GET All Order Products
     @GetMapping("/{orderId}/products")
     public ResponseEntity getAllProductsOfOrder(@PathVariable("orderId") Long orderId) {
-        Order order = orderFacade.getOrderById(orderId);
+        OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -93,7 +94,7 @@ public class OrderController {
     @PostMapping("/{orderId}/products")
     public ResponseEntity addProductsOfCreatedOrder(@PathVariable("orderId") Long orderId,
                                                     @RequestBody List<Product> products) {
-        Order order = orderFacade.getOrderById(orderId);
+        OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -107,13 +108,13 @@ public class OrderController {
     @DeleteMapping("/{orderId}/products/{productId}")
     public ResponseEntity removeProductFromOrder(@PathVariable("orderId") Long orderId,
                                                  @PathVariable("productId") Long productId) {
-        Order order = orderFacade.getOrderById(orderId);
+        OrderDTO order = orderFacade.getOrderById(orderId);
 
         if(Objects.isNull(order)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-        Product product = order.getOrderProducts().stream()
+        /*Product product = order.getOrderProducts().stream()
                                                   .filter(op -> op.getProduct()
                                                                   .getId()
                                                               .equals(productId))
@@ -121,12 +122,11 @@ public class OrderController {
                                                   .map(orderProduct -> {
                                                       return orderProduct.getProduct();
                                                   })
-                                                  .orElse(null);
-
-        /*Product product = order.getOrderProducts().stream()
-                                                  .filter(p -> p.getId().equals(productId))
-                                                  .findFirst()
                                                   .orElse(null);*/
+        ProductDTO product = order.getOrderProducts().stream()
+                                                     .filter(p -> p.getId().equals(productId))
+                                                     .findFirst()
+                                                     .orElse(null);
 
         if(Objects.isNull(product)) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);

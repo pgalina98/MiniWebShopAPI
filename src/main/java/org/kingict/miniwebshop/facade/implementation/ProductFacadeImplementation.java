@@ -1,7 +1,9 @@
 package org.kingict.miniwebshop.facade.implementation;
 
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.ProductFacade;
+import org.kingict.miniwebshop.mapper.ProductDTOMapper;
 import org.kingict.miniwebshop.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -12,14 +14,16 @@ import java.util.List;
 public class ProductFacadeImplementation implements ProductFacade {
 
     private final ProductService productService;
+    private final ProductDTOMapper productDTOMapper;
 
-    public ProductFacadeImplementation(ProductService productService) {
+    public ProductFacadeImplementation(ProductService productService, ProductDTOMapper productDTOMapper) {
         this.productService = productService;
+        this.productDTOMapper = productDTOMapper;
     }
 
     @Override
-    public Product getProductById(Long productId) {
-        return productService.getProductById(productId);
+    public ProductDTO getProductById(Long productId) {
+        return productDTOMapper.map(productService.getProductById(productId));
     }
 
     @Override
@@ -31,7 +35,7 @@ public class ProductFacadeImplementation implements ProductFacade {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public List<ProductDTO> getAllProducts() {
+        return productDTOMapper.map(productService.getAllProducts());
     }
 }

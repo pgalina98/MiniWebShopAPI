@@ -1,5 +1,6 @@
 package org.kingict.miniwebshop.facade;
 
+import org.kingict.miniwebshop.dto.OrderDTO;
 import org.kingict.miniwebshop.entity.Order;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.form.OrderForm;
@@ -8,12 +9,12 @@ import java.util.List;
 
 public interface OrderFacade {
 
-    Order getOrderById(Long orderId);
-    List<Order> getAllOrders();
-    Order createNewOrder(OrderForm orderForm);
-    Order updateOrderById(Long orderId, OrderForm updatedOrder);
+    OrderDTO getOrderById(Long orderId);
+    List<OrderDTO> getAllOrders();
+    OrderDTO createNewOrder(OrderForm orderForm);
+    OrderDTO updateOrderById(Long orderId, OrderForm updatedOrder);
     void deleteOrderById(Long orderId);
-    Order addProductsOfOrder(Long orderId, List<Product> products);
+    OrderDTO addProductsOfOrder(Long orderId, List<Product> products);
     List<Product> getAllProductsOfOrder(Long orderId);
-    Order removeProductFromOrder(Long orderId, Long productId);
+    OrderDTO removeProductFromOrder(Long orderId, Long productId);
 }

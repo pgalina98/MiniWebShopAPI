@@ -10,6 +10,9 @@ import java.util.List;
 @Entity
 @Table(name = "PROIZVOD")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+                  property = "id",
+                  scope = Product.class)
 public class Product {
 
     @Id
@@ -33,11 +36,16 @@ public class Product {
     private Integer dostupnaKolicina;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    @JsonManagedReference(value = "product-orderProduct")
+    //@JsonBackReference(value = "product-orderProduct")
     private List<OrderProduct> productOrders = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "BRAND_ID", insertable = false, updatable = false)
-    @JsonBackReference(value = "product-brand")
+    //@JsonManagedReference(value = "product-brand")
     private Brand brand;
+
+    @ManyToMany(mappedBy = "orderProducts",
+                fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Order> ordersOfProduct;
 }

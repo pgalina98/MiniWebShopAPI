@@ -11,6 +11,9 @@ import java.util.List;
 @Entity
 @Table(name = "NARUDZBA")
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+                  property = "id",
+                  scope = Order.class)
 public class Order {
 
     @Id
@@ -52,16 +55,31 @@ public class Order {
     private String napomena;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "order-orderProduct")
+    //@JsonBackReference(value = "order-orderProduct")
+    @JsonIgnore
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "POPUST_KOD_ID", insertable = false, updatable = false)
-    @JsonBackReference(value = "order-discountCode")
+    //@JsonManagedReference(value = "order-discountCode")
     private DiscountCode discountCode;
 
     @ManyToOne
     @JoinColumn(name = "NACIN_PLACANJA_ID", insertable = false, updatable = false)
-    @JsonBackReference(value = "order-paymentMethod")
+    //@JsonManagedReference(value = "order-paymentMethod")
     private PaymentMethod paymentMethod;
+
+    @ManyToMany(cascade = CascadeType.ALL,
+                fetch = FetchType.LAZY)
+    @JoinTable(
+                name = "NARUDZBA_PROIZVOD",
+                joinColumns = {
+                    @JoinColumn(name = "NARUDZBA_ID")
+                },
+                inverseJoinColumns = {
+                    @JoinColumn(name = "PROIZVOD_ID")
+                }
+    )
+    //@JsonManagedReference
+    private List<Product> productsOfOrder = new ArrayList<>();
 }
