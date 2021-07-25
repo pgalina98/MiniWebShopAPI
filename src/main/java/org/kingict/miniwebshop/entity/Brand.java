@@ -10,9 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "BRAND")
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-                  property = "id",
-                  scope = Brand.class)
 public class Brand {
 
     @Id
@@ -23,7 +20,7 @@ public class Brand {
     @Column(name = "NAZIV")
     private String naziv;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER)
     //@JsonBackReference(value = "product-brand")
     @JsonIgnore
     private List<Product> brandProducts = new ArrayList<>();
