@@ -1,6 +1,7 @@
 package org.kingict.miniwebshop.service.implementation;
 
 import org.kingict.miniwebshop.entity.Brand;
+import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.repository.BrandRepository;
 import org.kingict.miniwebshop.service.BrandService;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class BrandServiceImplementation implements BrandService {
     @Override
     public void deleteBrandById(Long brandId) {
         brandRepository.deleteById(brandId);
+    }
+
+    @Override
+    public List<Product> getAllBrandProducts(Long brandId) {
+        return brandRepository.findBrandById(brandId).getBrandProducts();
     }
 }

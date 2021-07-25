@@ -1,26 +1,29 @@
 package org.kingict.miniwebshop.facade.implementation;
 
 import org.kingict.miniwebshop.dto.BrandDTO;
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Brand;
 import org.kingict.miniwebshop.facade.BrandFacade;
 import org.kingict.miniwebshop.form.BrandForm;
 import org.kingict.miniwebshop.mapper.BrandDTOMapper;
+import org.kingict.miniwebshop.mapper.ProductDTOMapper;
 import org.kingict.miniwebshop.service.BrandService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Locale;
 
 @Component
 public class BrandFacadeImplementation implements BrandFacade {
 
     private final BrandService brandService;
     private final BrandDTOMapper brandDTOMapper;
+    private final ProductDTOMapper productDTOMapper;
 
-    public BrandFacadeImplementation(BrandService brandService, BrandDTOMapper brandDTOMapper) {
+    public BrandFacadeImplementation(BrandService brandService, BrandDTOMapper brandDTOMapper, ProductDTOMapper productDTOMapper) {
         this.brandService = brandService;
         this.brandDTOMapper = brandDTOMapper;
+        this.productDTOMapper = productDTOMapper;
     }
 
     @Override
@@ -51,5 +54,10 @@ public class BrandFacadeImplementation implements BrandFacade {
     @Override
     public void deleteBrandById(Long brandId) {
         brandService.deleteBrandById(brandId);
+    }
+
+    @Override
+    public List<ProductDTO> getAllBrandProducts(Long brandId) {
+        return productDTOMapper.map(brandService.getAllBrandProducts(brandId));
     }
 }

@@ -2,6 +2,7 @@ package org.kingict.miniwebshop.controller;
 
 import org.kingict.miniwebshop.dto.BrandDTO;
 import org.kingict.miniwebshop.dto.OrderDTO;
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.facade.BrandFacade;
 import org.kingict.miniwebshop.form.BrandForm;
 import org.kingict.miniwebshop.form.OrderForm;
@@ -55,4 +56,14 @@ public class BrandController {
     }
 
     //GET All Brand Products
+    @GetMapping("/{brandId}/products")
+    public ResponseEntity getAllBrandProducts(@PathVariable("brandId") Long brandId) {
+        BrandDTO brand = brandFacade.getBrandById(brandId);
+
+        if(Objects.isNull(brand)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(brandFacade.getAllBrandProducts(brandId), HttpStatus.OK);
+    }
 }
