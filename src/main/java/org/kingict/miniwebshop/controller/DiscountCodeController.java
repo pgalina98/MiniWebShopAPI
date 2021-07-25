@@ -55,4 +55,16 @@ public class DiscountCodeController {
     }
 
     //DELETE Discount Code
+    @DeleteMapping("/{discountCodeId}")
+    public ResponseEntity deleteDiscountCodeById(@PathVariable("discountCodeId") Long discountCodeId) {
+        DiscountCodeDTO discountCode = discountCodeFacade.getDiscountCodeById(discountCodeId);
+
+        if(Objects.isNull(discountCode)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        discountCodeFacade.deleteDiscountCodeById(discountCodeId);
+
+        return new ResponseEntity(discountCode, HttpStatus.OK);
+    }
 }

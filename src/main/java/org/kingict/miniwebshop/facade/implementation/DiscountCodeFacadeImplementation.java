@@ -53,6 +53,6 @@ public class DiscountCodeFacadeImplementation implements DiscountCodeFacade {
 
     @Override
     public void deleteDiscountCodeById(Long discountCodeId) {
-
+        discountCodeService.deleteDiscountCodeById(discountCodeId);
     }
 }

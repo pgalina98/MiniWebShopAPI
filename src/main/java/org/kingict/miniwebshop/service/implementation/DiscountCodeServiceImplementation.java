@@ -38,6 +38,6 @@ public class DiscountCodeServiceImplementation implements DiscountCodeService {
 
     @Override
     public void deleteDiscountCodeById(Long discountCodeId) {
-
+        discountCodeRepository.deleteById(discountCodeId);
     }
 }
