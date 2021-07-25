@@ -20,7 +20,7 @@ public class Brand {
     @Column(name = "NAZIV")
     private String naziv;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
     //@JsonBackReference(value = "product-brand")
     @JsonIgnore
     private List<Product> brandProducts = new ArrayList<>();

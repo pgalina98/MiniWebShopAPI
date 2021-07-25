@@ -42,19 +42,7 @@ public class OrderProductDTOMapperImplementation implements OrderProductDTOMappe
     @Override
     public List<OrderProductDTO> map(Order order, List<Product> products) {
         return products.stream()
-                       .map(p -> {
-           OrderProductDTO orderProductDTO = new OrderProductDTO();
-
-           orderProductDTO.setId(p.getId());
-           orderProductDTO.setBrand(p.getBrand());
-           orderProductDTO.setNaziv(p.getNaziv());
-           orderProductDTO.setOpis(p.getOpis());
-           orderProductDTO.setCijena(p.getCijena());
-           orderProductDTO.setDostupnaKolicina(p.getDostupnaKolicina());
-           orderProductDTO.setNarucenaKolicina(getOrderedProductQuantity(order.getId(), p.getId()));
-
-           return orderProductDTO;
-        }).collect(Collectors.toList());
+                       .map(product -> map(order, product)).collect(Collectors.toList());
     }
 
     private Integer getOrderedProductQuantity(Long orderId, Long productId) {

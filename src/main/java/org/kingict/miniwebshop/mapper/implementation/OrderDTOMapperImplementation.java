@@ -52,24 +52,6 @@ public class OrderDTOMapperImplementation implements OrderDTOMapper {
     @Override
     public List<OrderDTO> map(List<Order> orders) {
         return orders.stream()
-                     .map(o -> {
-           OrderDTO orderDTO = new OrderDTO();
-
-           orderDTO.setId(o.getId());
-           orderDTO.setDiscountCode(o.getDiscountCode());
-           orderDTO.setPaymentMethod(o.getPaymentMethod());
-           orderDTO.setOrderProducts(orderProductDTOMapper.map(o, o.getProductsOfOrder()));
-           orderDTO.setUkupnaCijenaBezPopusta(o.getUkupnaCijenaBezPopusta());
-           orderDTO.setUkupnaCijenaSPopustom(o.getUkupnaCijenaSPopustom());
-           orderDTO.setDatumKreiranjaNarudzbe(o.getDatumKreiranjaNarudzbe());
-           orderDTO.setDatumAzuriranjaNarudzbe(o.getDatumAzuriranjaNarudzbe());
-           orderDTO.setBrojKartice(o.getBrojKartice());
-           orderDTO.setEmail(o.getEmail());
-           orderDTO.setBrojMobitela(o.getBrojMobitela());
-           orderDTO.setAdresaDostave(o.getAdresaDostave());
-           orderDTO.setNapomena(o.getNapomena());
-
-           return orderDTO;
-        }).collect(Collectors.toList());
+                     .map(order -> map(order)).collect(Collectors.toList());
     }
 }
