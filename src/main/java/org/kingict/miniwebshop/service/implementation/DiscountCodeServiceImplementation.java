@@ -23,7 +23,7 @@ public class DiscountCodeServiceImplementation implements DiscountCodeService {
 
     @Override
     public List<DiscountCode> getAllDiscountCodes() {
-        return null;
+        return discountCodeRepository.findAll();
     }
 
     @Override

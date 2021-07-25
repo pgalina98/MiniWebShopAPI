@@ -28,7 +28,7 @@ public class DiscountCodeFacadeImplementation implements DiscountCodeFacade {
 
     @Override
     public List<DiscountCodeDTO> getAllDiscountCodes() {
-        return null;
+        return discountCodeDTOMapper.map(discountCodeService.getAllDiscountCodes());
     }
 
     @Override
