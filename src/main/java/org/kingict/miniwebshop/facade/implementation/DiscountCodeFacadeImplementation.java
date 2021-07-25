@@ -1,11 +1,13 @@
 package org.kingict.miniwebshop.facade.implementation;
 
 import org.kingict.miniwebshop.dto.DiscountCodeDTO;
+import org.kingict.miniwebshop.entity.DiscountCode;
 import org.kingict.miniwebshop.facade.DiscountCodeFacade;
 import org.kingict.miniwebshop.form.DiscountCodeForm;
 import org.kingict.miniwebshop.form.OrderForm;
 import org.kingict.miniwebshop.mapper.DiscountCodeDTOMapper;
 import org.kingict.miniwebshop.service.DiscountCodeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,7 +35,11 @@ public class DiscountCodeFacadeImplementation implements DiscountCodeFacade {
 
     @Override
     public DiscountCodeDTO createNewDiscountCode(DiscountCodeForm discountCodeForm) {
-        return null;
+        DiscountCode discountCode = new DiscountCode();
+
+        BeanUtils.copyProperties(discountCodeForm, discountCode);
+
+        return discountCodeDTOMapper.map(discountCodeService.createNewDiscountCode(discountCode));
     }
 
     @Override

@@ -3,10 +3,9 @@ package org.kingict.miniwebshop.controller;
 import org.kingict.miniwebshop.dto.BrandDTO;
 import org.kingict.miniwebshop.dto.DiscountCodeDTO;
 import org.kingict.miniwebshop.facade.DiscountCodeFacade;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.kingict.miniwebshop.form.BrandForm;
+import org.kingict.miniwebshop.form.DiscountCodeForm;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +32,12 @@ public class DiscountCodeController {
     }
 
     //POST New Discount Code
+    @PostMapping
+    public DiscountCodeDTO createNewDiscountCode(@RequestBody DiscountCodeForm discountCodeForm) {
+        return discountCodeFacade.createNewDiscountCode(discountCodeForm);
+    }
 
     //PUT Discount Code
+
+    //DELETE Discount Code
 }

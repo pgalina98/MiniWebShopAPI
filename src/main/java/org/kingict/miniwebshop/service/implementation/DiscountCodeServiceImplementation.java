@@ -28,7 +28,7 @@ public class DiscountCodeServiceImplementation implements DiscountCodeService {
 
     @Override
     public DiscountCode createNewDiscountCode(DiscountCode discountCode) {
-        return null;
+        return discountCodeRepository.save(discountCode);
     }
 
     @Override
