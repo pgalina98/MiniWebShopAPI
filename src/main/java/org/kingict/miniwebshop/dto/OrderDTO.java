@@ -1,5 +1,6 @@
 package org.kingict.miniwebshop.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.kingict.miniwebshop.entity.DiscountCode;
 import org.kingict.miniwebshop.entity.PaymentMethod;
@@ -22,8 +23,12 @@ public class OrderDTO {
 
     private Double ukupnaCijenaSPopustom;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING,
+            pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime datumKreiranjaNarudzbe;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING,
+            pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime datumAzuriranjaNarudzbe;
 
     private String brojKartice;
