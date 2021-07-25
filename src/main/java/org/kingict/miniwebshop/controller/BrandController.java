@@ -66,4 +66,18 @@ public class BrandController {
 
         return new ResponseEntity(brandFacade.getAllBrandProducts(brandId), HttpStatus.OK);
     }
+
+    //PUT Brand
+    @PutMapping("/{brandId}")
+    public ResponseEntity updateOrderById(@PathVariable("brandId") Long brandId,
+                                          @RequestBody BrandForm updatedBrandForm) {
+        BrandDTO brand = brandFacade.getBrandById(brandId);
+
+        if(Objects.isNull(brand)) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(brandFacade.updateBrandById(brandId, updatedBrandForm),
+                                  HttpStatus.OK);
+    }
 }

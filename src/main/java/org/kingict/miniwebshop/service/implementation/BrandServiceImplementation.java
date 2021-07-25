@@ -33,8 +33,8 @@ public class BrandServiceImplementation implements BrandService {
     }
 
     @Override
-    public Brand updateBrandById(Long brandId, Brand updatedBrand) {
-        return null;
+    public Brand updateBrand(Brand updatedBrand) {
+        return (Brand) brandRepository.save(updatedBrand);
     }
 
     @Override

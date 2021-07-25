@@ -48,7 +48,12 @@ public class BrandFacadeImplementation implements BrandFacade {
 
     @Override
     public BrandDTO updateBrandById(Long brandId, BrandForm updatedBrand) {
-        return null;
+        Brand brand = brandService.getBrandById(brandId);
+
+        BeanUtils.copyProperties(updatedBrand, brand);
+        brand.setNaziv(brand.getNaziv().toUpperCase());
+
+        return brandDTOMapper.map(brandService.updateBrand(brand));
     }
 
     @Override
