@@ -30,9 +30,4 @@ public class ProductServiceImplementation implements ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
-    @Override
-    public List<Product> getOrderProducts(Long orderId) {
-        return productRepository.findProductsOfOrderById(orderId);
-    }
 }

@@ -1,7 +1,8 @@
 package org.kingict.miniwebshop.facade;
 
 import org.kingict.miniwebshop.dto.OrderDTO;
-import org.kingict.miniwebshop.entity.Order;
+import org.kingict.miniwebshop.dto.OrderProductDTO;
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.form.OrderForm;
 
@@ -15,6 +16,5 @@ public interface OrderFacade {
     OrderDTO updateOrderById(Long orderId, OrderForm updatedOrder);
     void deleteOrderById(Long orderId);
     OrderDTO addProductsOfOrder(Long orderId, List<Product> products);
-    List<Product> getAllProductsOfOrder(Long orderId);
-    OrderDTO removeProductFromOrder(Long orderId, Long productId);
+    List<OrderProductDTO> getAllProductsOfOrder(Long orderId);
 }

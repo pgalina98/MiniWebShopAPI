@@ -103,36 +103,4 @@ public class OrderController {
         return new ResponseEntity(orderFacade.addProductsOfOrder(orderId, products),
                                   HttpStatus.OK);
     }
-
-    //DELETE Orders Product
-    @DeleteMapping("/{orderId}/products/{productId}")
-    public ResponseEntity removeProductFromOrder(@PathVariable("orderId") Long orderId,
-                                                 @PathVariable("productId") Long productId) {
-        OrderDTO order = orderFacade.getOrderById(orderId);
-
-        if(Objects.isNull(order)) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        /*Product product = order.getOrderProducts().stream()
-                                                  .filter(op -> op.getProduct()
-                                                                  .getId()
-                                                              .equals(productId))
-                                                  .findFirst()
-                                                  .map(orderProduct -> {
-                                                      return orderProduct.getProduct();
-                                                  })
-                                                  .orElse(null);*/
-        ProductDTO product = order.getOrderProducts().stream()
-                                                     .filter(p -> p.getId().equals(productId))
-                                                     .findFirst()
-                                                     .orElse(null);
-
-        if(Objects.isNull(product)) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(orderFacade.removeProductFromOrder(orderId, productId),
-                                  HttpStatus.OK);
-    }
 }

@@ -46,16 +46,4 @@ public class OrderServiceImplementation implements OrderService {
     public Order addProductsOfOrder(Order order) {
         return (Order) orderRepository.save(order);
     }
-
-    @Override
-    public List<Product> getAllProductsOfOrder(Long orderId) {
-        Order order = orderRepository.findOrderById(orderId);
-
-        return null;
-    }
-
-    @Override
-    public Order removeProductFromOrder(Order order) {
-        return (Order) orderRepository.save(order);
-    }
 }

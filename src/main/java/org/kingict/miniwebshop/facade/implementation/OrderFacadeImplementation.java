@@ -1,12 +1,15 @@
 package org.kingict.miniwebshop.facade.implementation;
 
 import org.kingict.miniwebshop.dto.OrderDTO;
+import org.kingict.miniwebshop.dto.OrderProductDTO;
+import org.kingict.miniwebshop.dto.ProductDTO;
 import org.kingict.miniwebshop.entity.Order;
 import org.kingict.miniwebshop.entity.OrderProduct;
 import org.kingict.miniwebshop.entity.Product;
 import org.kingict.miniwebshop.facade.OrderFacade;
 import org.kingict.miniwebshop.form.OrderForm;
 import org.kingict.miniwebshop.mapper.OrderDTOMapper;
+import org.kingict.miniwebshop.mapper.OrderProductDTOMapper;
 import org.kingict.miniwebshop.service.OrderProductService;
 import org.kingict.miniwebshop.service.OrderService;
 import org.kingict.miniwebshop.service.ProductService;
@@ -22,12 +25,14 @@ public class OrderFacadeImplementation implements OrderFacade {
     private final ProductService productService;
     private final OrderProductService orderProductService;
     private final OrderDTOMapper orderDTOMapper;
+    private final OrderProductDTOMapper orderProductDTOMapper;
 
-    public OrderFacadeImplementation(OrderService orderService, ProductService productService, OrderProductService orderProductService, OrderDTOMapper orderDTOMapper) {
+    public OrderFacadeImplementation(OrderService orderService, ProductService productService, OrderProductService orderProductService, OrderDTOMapper orderDTOMapper, OrderProductDTOMapper orderProductDTOMapper) {
         this.orderService = orderService;
         this.productService = productService;
         this.orderProductService = orderProductService;
         this.orderDTOMapper = orderDTOMapper;
+        this.orderProductDTOMapper = orderProductDTOMapper;
     }
 
     @Override
@@ -94,17 +99,10 @@ public class OrderFacadeImplementation implements OrderFacade {
     }
 
     @Override
-    public List<Product> getAllProductsOfOrder(Long orderId) {
-        List<Product> products = productService.getOrderProducts(orderId);
-
-        return products;
-    }
-
-    @Override
-    public OrderDTO removeProductFromOrder(Long orderId, Long productId) {
+    public List<OrderProductDTO> getAllProductsOfOrder(Long orderId) {
         Order order = orderService.getOrderById(orderId);
-        order.getOrderProducts().removeIf(product -> product.getId().equals(productId));
+        List<Product> products = order.getProductsOfOrder();
 
-        return orderDTOMapper.map(orderService.removeProductFromOrder(order));
+        return orderProductDTOMapper.map(order, products);
     }
 }
