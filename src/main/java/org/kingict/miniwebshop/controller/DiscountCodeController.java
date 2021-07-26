@@ -14,6 +14,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/discount-codes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class DiscountCodeController {
 
     private final DiscountCodeFacade discountCodeFacade;
