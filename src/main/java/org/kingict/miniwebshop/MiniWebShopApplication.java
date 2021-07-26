@@ -5,8 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class MiniWebShopApplication {
@@ -24,7 +27,7 @@ public class MiniWebShopApplication {
 
         configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
-        source.registerCorsConfiguration("/*", configuration);
+        source.registerCorsConfiguration("/**", configuration);
 
         filterRegistrationBean.setFilter(new CorsFilter(source));
         filterRegistrationBean.setOrder(0);
