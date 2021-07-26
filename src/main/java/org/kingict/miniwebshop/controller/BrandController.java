@@ -15,7 +15,6 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/brands")
-@CrossOrigin(origins = "http://localhost:3000")
 public class BrandController {
 
     private final BrandFacade brandFacade;
