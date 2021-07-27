@@ -11,7 +11,8 @@ INSERT INTO BRAND(NAZIV) VALUES
     ('ACER'),
     ('HP'),
     ('LENOVO'),
-    ('XIAOMI');
+    ('XIAOMI'),
+    ('NOVI BRAND v2');
 
 DROP TABLE IF EXISTS PROIZVOD CASCADE;
 CREATE TABLE PROIZVOD(
@@ -33,7 +34,8 @@ INSERT INTO PROIZVOD(BRAND_ID, NAZIV, OPIS, CIJENA, KOLICINA) VALUES
     (7, 'Električni romobil XIAOMI MI PRO 2', 'Mi Electric Scooter Pro2 je izrađen od visokog aluminija i skoro zanemarive težine od 14 kg, s razlogom nosi titulu jednog od najtraženijih električnih romobila na tržištu. Električni kočni ABS sustav i mogućnost brzog oporavka energije, čini ga efikasnim prijevoznim sredstvom. Povećani kapacitet baterije, veliko napajanje i učinkovito ubrzanje omogućuju vožnju od 45 km sa samo jednim punjenjem baterije. Pametni sustav upravljanja nudi šest različitih zaštitnih mjera, a pored navedenog, tehnološki napredni romobil može se povezati na pametni telefon putem aplikacije Mi Home uz pomoć koje možete pratiti prijeđene kilometre te promatrati izdržljivost baterije.', 4498.95, 4),
     (2, 'Podloga za miš RAZER Chroma', 'Podloga za miš, crne boje/ Razer Chroma prilagodljiva rasvjeta. Dimenzije: 355 mm x 255 mm x 4 mm.', 499.00, 5),
     (7, 'Bluetooth slušalice XIAOMI Mi True', 'XIAOMI Mi True odlikuje IPX4 otpornost na prskanje i znoj, optimiziran način međusobnog povezivanja lijeve i desne slušalice tako se još jednostavnije možete prebaciti iz rada jedne ili obje slušalice', 229.00, 18),
-    (1, 'Web kamera LOGITECH MeetUp', 'Konferencija kamera Logitech Meetup izrađena je posebno za male sobe za sastanke. Odlikuje se širokim kutom gledanja(120), koji se lako hvata cijelu sobu. 4K Ultra HD senzor osigurava izvanrednu razlučivost i balans boja. Za odličan zvuk se brine integrirani audio, optimiziran za akustiku prostora (tri mikrofona i zvučnika).', 8998.84, 2);
+    (1, 'Web kamera LOGITECH MeetUp', 'Konferencija kamera Logitech Meetup izrađena je posebno za male sobe za sastanke. Odlikuje se širokim kutom gledanja(120), koji se lako hvata cijelu sobu. 4K Ultra HD senzor osigurava izvanrednu razlučivost i balans boja. Za odličan zvuk se brine integrirani audio, optimiziran za akustiku prostora (tri mikrofona i zvučnika).', 8998.84, 0);
+
 DROP TABLE IF EXISTS NACIN_PLACANJA CASCADE;
 CREATE TABLE NACIN_PLACANJA(
     ID SERIAL PRIMARY KEY,
