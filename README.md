@@ -1,7 +1,7 @@
 # MiniWebShop
 ## 1. Instanciranje PostgresSQL baze
 Pokrenuti instancu PostgresSQL baze pomoću Docker-a i bindati port na 5432 (defaultni PostresSQL port). PostgresSQL je moguće instancirati i lokalno preuzimanjem sa https://www.postgresql.org/download/, ali se zbog jednostavnosti preporučuje koristiti Docker.
-> Ukoliko naiđete na probleme prilikom instanciranja PostresSQL baze dodatne informacije te detaljnije upute možete pronaći na https://hub.docker.com/_/postgres
+> Ukoliko naiđete na probleme prilikom instanciranja PostresSQL baze, dodatne informacije te detaljnije upute možete pronaći na https://hub.docker.com/_/postgres
 ## 2. Izvršavanje SQL naredbi
 ```
 DROP DATABASE IF EXISTS miniwebshopdb;
